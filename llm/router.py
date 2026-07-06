@@ -19,9 +19,9 @@ class LLMRouter:
     """
 
     # 阈值
-    ACTION_COUNT_THRESHOLD = 10       # 可选动作超过此数 → API
-    HISTORY_LENGTH_THRESHOLD = 8      # 历史步数超过此数 → API
-    REPEAT_ACTION_THRESHOLD = 3       # 连续重复动作次数 → API
+    ACTION_COUNT_THRESHOLD = 5        # 可选动作超过此数 → API
+    HISTORY_LENGTH_THRESHOLD = 3      # 历史步数超过此数 → API
+    REPEAT_ACTION_THRESHOLD = 2       # 连续重复动作次数 → API
 
     def __init__(
         self,
@@ -64,11 +64,14 @@ class LLMRouter:
         history: list[dict],
         system: Optional[str] = None,
     ) -> str:
-        """自动选择模型并生成回复。"""
+        """自动选择模型并生成回复。本地失败时自动 fallback 到 API。"""
         backend = self.decide(num_actions, history)
 
         if backend == "local" and self.local:
-            return self.local.generate(prompt)
+            try:
+                return self.local.generate(prompt)
+            except Exception as e:
+                print(f"  [Router] Local model failed ({e}), falling back to API")
 
         return self.api.generate(prompt, system=system)
 

@@ -12,7 +12,7 @@ class LocalLLM:
     def __init__(
         self,
         model_path: Optional[str] = None,
-        n_ctx: int = 2048,
+        n_ctx: int = 4096,
         n_threads: int = 8,
         temperature: float = 0.0,
         max_tokens: int = 512,
