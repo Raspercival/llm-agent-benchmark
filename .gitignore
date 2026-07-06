@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+
+# Models (local)
+models/
+*.gguf
+*.bin
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results (keep summaries, drop raw logs)
+results/*.log
+results/*.jsonl
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Official benchmark repos (use hand-built versions instead)
+envs/WebShop/
+envs/alfworld/
+envs/envs/
+
+# Tool internal files
+.cctx/
+.serena/
+
+# Misc
+list.md
